@@ -1,3 +1,6 @@
+html{
+  height: 100%;
+}
 body {
   font-family: "Roboto", sans-serif;
   color: #545E6C;
@@ -5,6 +8,7 @@ body {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -12,12 +16,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 a {
-  color: #2d7788;
+  color: #28315e;
   text-decoration: none;
 }
 a:hover {
-  text-decoration: underline;
-  color: #1a454f;
+  text-decoration: none;
+  color: #0d6efd;
   -webkit-transition: all 0.4s ease-in-out;
   -moz-transition: all 0.4s ease-in-out;
   -ms-transition: all 0.4s ease-in-out;
@@ -31,22 +35,66 @@ p {
   line-height: 1.5;
 }
 
-.wrapper {
-  background: #42A8C0;
-  max-width: 960px;
-  margin: 0 auto;
-  position: relative;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+.grid-wrapper {
+  display: grid; 
+  grid-auto-columns: 1fr; 
+  grid-template-columns: auto 500px 340px auto;
+  grid-template-rows: auto auto; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    ".       .      language-wrapper  ."
+    ". main-wrapper sidebar-wrapper   ."; 
+}
+.language-wrapper { grid-area: language-wrapper; }
+.main-wrapper { grid-area: main-wrapper; }
+.sidebar-wrapper { grid-area: sidebar-wrapper; }
+
+
+/* Language switch */
+.es{  display: none;  }
+.en{  display: block; }
+@keyframes hide {
+  0% {  transform: scaleY(1);   opacity: 1; }
+  100% {transform: scaleY(0.5); opacity: 0; }  
+}
+@keyframes show {
+  0% {   transform: scaleY(0.5); opacity: 0; }
+  100% { transform: scaleY(1);   opacity: 1; }
+}
+.appear{    display: block; }
+.disappear{ display: none;  }
+.show {  
+  animation: show 500ms linear;
+  animation-fill-mode: forwards;  
+}
+.hide {
+  animation: hide 500ms linear;
+  animation-fill-mode: forwards;
+}
+/* Language switch */
+
+.language-wrapper{
+  background: #20274b;
+  display: flex;
+  flex-direction:row;
+  justify-content:space-evenly;
+}
+.language-wrapper a{
+  color:#f5f5f5;
+  /* margin-top: 5px; */
+  /* background-color: #6c7ed6; */
+  padding: 5px 30px;
+}
+.language-wrapper a img{
+  height: 15px;
+  width: 15px;
+  margin: 5px;
 }
 
 .sidebar-wrapper {
   background: #28315e;
-  position: absolute;
-  right: 0;
-  width: auto;
-  height: 100%;
-  min-height: 800px;
   color: #fff;
+  min-width: 335px;
 }
 .sidebar-wrapper a {
   color: #fff;
@@ -145,8 +193,9 @@ p {
 
 .main-wrapper {
   background: #fff;
-  padding: 30px;
-  padding-right: 400px;
+  padding: 0 30px;
+  min-width: 355px;
+  box-shadow: -5px -5px 20px #28315e2b;  
 }
 .main-wrapper .section-title {
   text-transform: uppercase;
@@ -154,8 +203,8 @@ p {
   font-weight: 500;
   color: #6c7ed6;
   position: relative;
-  margin-top: 30px;
-  margin-bottom: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .main-wrapper .section-title .icon-holder {
   width: 30px;
@@ -171,14 +220,14 @@ p {
   text-align: center;
   font-size: 16px;
   position: relative;
-  top: -3px;
+  top: -3px;  
 }
 .main-wrapper .section-title .icon-holder .svg-inline--fa {
   font-size: 14px;
   margin-top: 8px;
 }
 .main-wrapper .section {
-  margin-bottom: 60px;
+  margin-bottom: 20px;
 }
 .main-wrapper .experiences-section .item {
   margin-bottom: 30px;
@@ -219,15 +268,33 @@ p {
 }
 
 .skillset .item {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   overflow: hidden;
+}
+.btn{
+  font-size: 16px;
+}
+.btn-check:focus+.btn, .btn:focus{
+  box-shadow: none;
+}
+
+.skillset .item .prueba{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: none;
 }
 .skillset .level-title {
   font-size: 14px;
   margin-top: 0;
   margin-bottom: 12px;
 }
+.skillset .level-title .arrow{
+  margin-right: 5px;
+}
 .skillset .level-bar {
+  /* width: 50%; */
   height: 12px;
   background: #6c7ed6;
   border-radius: 2px;
@@ -238,98 +305,65 @@ p {
 .skillset .theme-progress-bar {
   background: #28315e;
 }
+.skillset ul {
+  /* padding-top: 10px; */
+  border: solid rgb(40, 49, 94);
+  padding: 10px;
+  margin-top: 10px;
+}
+.card-body{
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 15px;
+}
 
-@media (max-width: 767.98px) {
+@media (max-width: 865px) {
   .sidebar-wrapper {
     position: static;
     width: inherit;
   }
-
-  @media (max-width: 767.98px) {
-    .landing {
-      position: static;
-      width: inherit;
-    }
-  }
   .main-wrapper {
     padding: 30px;
   }
-
   .main-wrapper .time {
     position: static;
     display: block;
     margin-top: 5px;
   }
-
   .main-wrapper .upper-row {
     margin-bottom: 0;
   }
+  .sidebar-wrapper-tablet{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .tablet{
+    width: 350px;
+  }
+  .grid-wrapper  {
+    grid-template-columns: 1fr; 
+    grid-template-rows: auto; 
+    grid-template-areas: 
+      "language-wrapper"
+      "sidebar-wrapper"
+      "main-wrapper"; 
+  }  
 }
-@media (min-width: 992px) {
+@media (max-width: 606px) {
+.sidebar-wrapper-tablet{
+  display: flex;
+  flex-direction: column;
+}
+}
+@media (min-width: 1100px) {
   .skillset .level-title {
     display: inline-block;
     float: left;
-    width: 45%;
+    width: 50%;
     margin-bottom: 0;
   }
-}
-
-
-.landing {
-  background: #28315e;
-  color: #fff;
-  text-align: center;
-  flex-direction: column;
-  display: flex;
-  height: 100vh;
-}
-.landing a {
-  color: #fff;
-}
-.landing .profile-container {
-  padding: 15px;
-  background: rgba(0, 0, 0, 0.2);
-  text-align: center;
-  color: #fff;
-}
-.landing .name {
-  font-size: 32px;
-  font-weight: 900;
-  margin-top: 0;
-  margin-bottom: 10px;
-}
-.landing .tagline {
-  color: rgba(255, 255, 255, 0.6);
-  font-size: 16px;
-  font-weight: 400;
-  margin-top: 10;
-  margin-bottom: 20px;
-}
-.landing .profile {
-  margin-bottom: 15px;
-  width: 200px;
-}
-.landing .contact-list .svg-inline--fa {
-  margin-right: 10px;
-  font-size: 18px;
-  vertical-align: middle;
-}
-.landing .contact-list li {
-  margin-bottom: 15px;
-}
-.landing .contact-list li:last-child {
-  margin-bottom: 0;
-}
-.landing .contact-list .email .svg-inline--fa {
-  font-size: 14px;
-}
-.landing .container-block {
-  padding: 30px;
-}
-.landing .container-block-title {
-  text-transform: uppercase;
-  font-size: 16px;
-  font-weight: 700;
-  margin-top: 0;
-  margin-bottom: 15px;
+  .grid-wrapper{
+    grid-template-columns: auto 700px 340px auto;
+  }
 }
